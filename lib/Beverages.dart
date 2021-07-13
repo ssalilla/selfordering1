@@ -50,10 +50,15 @@ class _BeveragesState extends State<Beverages> {
                     child: Image.asset('assets/Menu/Americano.png')
                 ),
               ),
-                Text("Americano \n 120 บาท" , style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.brown),)
+                GestureDetector(
+                  onTap: () {Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Americano(),)
+                  );},
+                  child: Text("Americano 120 บาท" , style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.brown),),
+                )
               ],
             ),
             Column(
@@ -66,10 +71,15 @@ class _BeveragesState extends State<Beverages> {
                     child: Image.asset('assets/Menu/Cappucino.png')
                 ),
               ),
-                Text("Cappucino \n 160 บาท" , style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.brown),)
+                GestureDetector(
+                  onTap: () {Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Cappucino(),)
+                  );},
+                  child: Text("Cappucino 160 บาท" , style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.brown),),
+                )
               ],
             ),
             Column(
@@ -82,10 +92,15 @@ class _BeveragesState extends State<Beverages> {
                     child: Image.asset('assets/Menu/Espresso.png')
                 ),
               ),
-                Text("Espresso \n 180 บาท" , style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.brown),)
+                GestureDetector(
+                  onTap: () {Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Espresso(),)
+                  );},
+                  child: Text("Espresso 180 บาท" , style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.brown),),
+                )
               ],
             ),
             Column(
@@ -98,10 +113,15 @@ class _BeveragesState extends State<Beverages> {
                     child: Image.asset('assets/Menu/Latte.png')
                 ),
               ),
-                Text("Latte \n 160 บาท" , style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.brown),)
+                GestureDetector(
+                  onTap: () {Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Latte(),)
+                  );},
+                  child: Text("Latte 160 บาท" , style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.brown),),
+                )
               ],
             ),
             Column(
@@ -114,10 +134,15 @@ class _BeveragesState extends State<Beverages> {
                     child: Image.asset('assets/Menu/Mocca.png')
                 ),
               ),
-                Text("Mocca \n 180 บาท" , style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.brown),)
+                GestureDetector(
+                  onTap: () {Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Mocca(),)
+                  );},
+                  child: Text("Mocca 180 บาท" , style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.brown),),
+                )
               ],
             ),
           ],
