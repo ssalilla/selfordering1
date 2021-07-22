@@ -12,6 +12,7 @@ class addonsize {
   });
 }
 
+
 List<addonsize> listSize = [
   addonsize(
     id: 6,
@@ -26,37 +27,46 @@ List<addonsize> listSize = [
 ];
 
 
-class addonTopping {
+class addontopping {
   int id;
   String topping;
   double price;
+  bool isCheck;
 
-  addonTopping({
+  addontopping({
     required this.id,
     required this.topping,
     required this.price,
+    required this.isCheck,
   });
 }
 
-List<addonTopping> listWhip = [
-  addonTopping(
+List<addontopping> listTopping = [
+  addontopping(
     id: 8,
     topping: 'Whipcream',
     price: 0,
+    isCheck: true,
   ),
-  addonTopping(
+  addontopping(
     id: 9,
     topping: 'Javachip',
     price: 30,
+    isCheck: false,
   ),
-  addonTopping(
+  addontopping(
     id: 10,
     topping: 'SoyMilk',
     price: 20,
+    isCheck: false,
   ),
-  addonTopping(
+  addontopping(
     id: 11,
     topping: 'ExtraSyrup',
     price: 30,
+    isCheck: false,
   ),
 ];
+
+
+
