@@ -15,12 +15,17 @@ class addonsize {
 
 List<addonsize> listSize = [
   addonsize(
-    id: 6,
+    id: 7,
     size: 'Grande',
     price: 30,
   ),
   addonsize(
-    id: 7,
+    id: 8,
+    size: 'Grande',
+    price: 30,
+  ),
+  addonsize(
+    id: 9,
     size: 'Venti',
     price: 50,
   ),
@@ -43,25 +48,25 @@ class addontopping {
 
 List<addontopping> listTopping = [
   addontopping(
-    id: 8,
+    id: 10,
     topping: 'Whipcream',
     price: 0,
     isCheck: true,
   ),
   addontopping(
-    id: 9,
+    id: 11,
     topping: 'Javachip',
     price: 30,
     isCheck: false,
   ),
   addontopping(
-    id: 10,
+    id: 12,
     topping: 'SoyMilk',
     price: 20,
     isCheck: false,
   ),
   addontopping(
-    id: 11,
+    id: 13,
     topping: 'ExtraSyrup',
     price: 30,
     isCheck: false,

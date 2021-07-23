@@ -11,7 +11,23 @@ class Americano extends StatefulWidget {
 
 class _AmericanoState extends State<Americano> {
   List<Products> beverages = [];
-  List<addonsize> listSize = [];
+  List<addonsize> listSize = [
+    addonsize(
+      id: 7,
+      size: 'Tall',
+      price: 0,
+    ),
+    addonsize(
+      id: 8,
+      size: 'Grande',
+      price: 30,
+    ),
+    addonsize(
+      id: 9,
+      size: 'Venti',
+      price: 50,
+    ),
+  ];
   List<addontopping> listTopping = [
     addontopping(
       id: 8,
@@ -43,6 +59,8 @@ class _AmericanoState extends State<Americano> {
   bool _value = false;
 
   @override
+  var _size;
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -65,8 +83,6 @@ class _AmericanoState extends State<Americano> {
           ),
         ),
         child: ListView(
-          physics: NeverScrollableScrollPhysics(),
-          primary: false,
           padding: const EdgeInsets.all(100),
           children: <Widget>[
             Column(
@@ -101,56 +117,91 @@ class _AmericanoState extends State<Americano> {
                 ),
               ],
             ),
-               Column(
-                 mainAxisAlignment: MainAxisAlignment.center,
-                     crossAxisAlignment: CrossAxisAlignment.center,
-                     children: [
-                       ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: listTopping.length,
-                            itemBuilder: (BuildContext context, int i) {
-                              return new Card(
-                                child: new Container(
-                                  padding: new EdgeInsets.all(10.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      new CheckboxListTile(
-                                        activeColor: Colors.blue,
-                                        dense: true,
-                                        //font change
-                                        title: new Text(
-                                          listTopping[i].price
-                                            .toStringAsFixed(0) + ' บาท',
-                                          style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                        value: listTopping[i].isCheck,
-                                        secondary: Container(
-                                          height: 50,
-                                          width: 300,
-                                          child: Text(listTopping[i]
-                                              .topping,
-                                            style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold,
-                                            ),),
-                                        ),
-                                        onChanged: (bool? val) {
-                                          itemChange(val!, i);
-                                        },
-                                      ),
-                                    ],
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: listTopping.length,
+                    itemBuilder: (BuildContext context, int i) {
+                      return new Card(
+                        child: new Container(
+                          padding: new EdgeInsets.all(10.0),
+                          child: Column(
+                            children: <Widget>[
+                              new CheckboxListTile(
+                                activeColor: Colors.blue,
+                                dense: true,
+                                //font change
+                                title: new Text(
+                                  listTopping[i].price.toStringAsFixed(0) +
+                                      ' บาท',
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              );
-                            }),
-
-        ],
-               ),
-                 ],
-               ),
+                                value: listTopping[i].isCheck,
+                                secondary: Container(
+                                  height: 50,
+                                  width: 300,
+                                  child: Text(
+                                    listTopping[i].topping,
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                onChanged: (bool? val) {
+                                  itemChange(val!, i);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+              ],
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                children: [
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: listSize.length,
+                    itemBuilder: (BuildContext context, int i) {
+                      return new Card(
+                        child: new Container(
+                          padding: new EdgeInsets.all(10.0),
+                          child: Column(
+                            children: <Widget>[
+                              RadioListTile(
+                                  title: Text(listSize[i].size),
+                                  subtitle: Text(
+                                      listSize[i].price.toStringAsFixed(0) +
+                                          ' บาท'),
+                                  value: listSize[i].price,
+                                  groupValue: _size,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _size = value;
+                                    });
+                                  }),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
