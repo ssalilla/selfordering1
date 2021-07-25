@@ -4,8 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:selfordering1/models/addon.dart';
 import 'package:selfordering1/models/models.dart';
 
-class Americano extends StatefulWidget {
+import 'cart.dart';
 
+class Americano extends StatefulWidget {
   @override
   _AmericanoState createState() => _AmericanoState();
 }
@@ -57,14 +58,37 @@ class _AmericanoState extends State<Americano> {
   ];
   var items = Products().beverages;
 
-  bool _value = false;
-
-  @override
   var _size;
+  double price = 0.0;
 
+  void setPrice() {
+    this.price = calcPrice();
+    setState(() {});
+  }
+
+  double calcPrice() {
+    double listToppingPrice = this.listTopping.fold(
+        120,
+        (previousValue, element) =>
+            element.isCheck ? previousValue + element.price : previousValue);
+    double listSizePrice = this.listSize.fold(
+        120,
+        (previousValue, element) => element.id == _size
+            ? previousValue + element.price
+            : previousValue);
+    print(listSizePrice);
+    return listToppingPrice + listSizePrice;
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (_) => Cart(price: this.price)));
+        },
+        child: Icon(Icons.add_shopping_cart),
+      ),
       appBar: AppBar(
         title: Text(''),
         leading: IconButton(
@@ -96,12 +120,12 @@ class _AmericanoState extends State<Americano> {
                   height: 200,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(items[1].img),
+                      image: AssetImage(items[0].img),
                     ),
                   ),
                 ),
                 Text(
-                  items[1].name,
+                  items[0].name,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
@@ -110,7 +134,7 @@ class _AmericanoState extends State<Americano> {
                 Container(
                   margin: EdgeInsets.all(50),
                   child: Text(
-                    items[1].price.toStringAsFixed(0) + ' บาท',
+                    items[0].price.toStringAsFixed(0) + ' บาท',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
@@ -158,6 +182,7 @@ class _AmericanoState extends State<Americano> {
                                 ),
                                 onChanged: (bool? val) {
                                   itemChange(val!, i);
+                                  setPrice();
                                 },
                               ),
                             ],
@@ -184,18 +209,19 @@ class _AmericanoState extends State<Americano> {
                               RadioListTile(
                                   title: Text(listSize[i].size),
                                   subtitle: Text(
-                                      listSize[i].price.toStringAsFixed(0) +
-                                          ' บาท',
+                                    listSize[i].price.toStringAsFixed(0) +
+                                        ' บาท',
                                     style: TextStyle(
                                       fontSize: 25,
-                                      fontWeight: FontWeight.bold, color: Colors.black,
-                                    ),),
-                                  value: listSize[i].price,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  value: listSize[i].id,
                                   groupValue: _size,
                                   onChanged: (value) {
-                                    setState(() {
-                                      _size = value;
-                                    });
+                                    _size = value;
+                                    setPrice();
                                   }),
                             ],
                           ),
@@ -207,9 +233,14 @@ class _AmericanoState extends State<Americano> {
               ),
             ),
             Container(
-              width: 300,
-              height: 200,
-              child: Text(calculatePrice().toStringAsFixed(0) + ' บาท'),
+              child: Text(
+                this.price.toStringAsFixed(0) + ' บาท',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
             )
           ],
         ),
@@ -222,21 +253,4 @@ class _AmericanoState extends State<Americano> {
       listTopping[i].isCheck = val;
     });
   }
-}
-
-double calculatePrice() {
-  if (listTopping.isNotEmpty) {
-    var _price = 160.0;
-    // Get those toppings that are chosen (`isCheck` is true)
-    final chosenTopping = listTopping.where((element) => element.isCheck);
-
-    // Calculate the sum
-    for (var item in chosenTopping) {
-      if(item.isCheck) {
-        _price += item.price;
-      }
-    }
-    return _price;
-  }
-  return 0.00;
 }
