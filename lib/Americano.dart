@@ -5,6 +5,7 @@ import 'package:selfordering1/models/addon.dart';
 import 'package:selfordering1/models/models.dart';
 
 class Americano extends StatefulWidget {
+
   @override
   _AmericanoState createState() => _AmericanoState();
 }
@@ -61,6 +62,7 @@ class _AmericanoState extends State<Americano> {
   @override
   var _size;
 
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -84,10 +86,10 @@ class _AmericanoState extends State<Americano> {
         ),
         child: ListView(
           padding: const EdgeInsets.all(100),
-          children: <Widget>[
+          children: [
             Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   width: 200,
@@ -183,7 +185,11 @@ class _AmericanoState extends State<Americano> {
                                   title: Text(listSize[i].size),
                                   subtitle: Text(
                                       listSize[i].price.toStringAsFixed(0) +
-                                          ' บาท'),
+                                          ' บาท',
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold, color: Colors.black,
+                                    ),),
                                   value: listSize[i].price,
                                   groupValue: _size,
                                   onChanged: (value) {
@@ -200,6 +206,11 @@ class _AmericanoState extends State<Americano> {
                 ],
               ),
             ),
+            Container(
+              width: 300,
+              height: 200,
+              child: Text(calculatePrice().toStringAsFixed(0) + ' บาท'),
+            )
           ],
         ),
       ),
@@ -211,4 +222,21 @@ class _AmericanoState extends State<Americano> {
       listTopping[i].isCheck = val;
     });
   }
+}
+
+double calculatePrice() {
+  if (listTopping.isNotEmpty) {
+    var _price = 160.0;
+    // Get those toppings that are chosen (`isCheck` is true)
+    final chosenTopping = listTopping.where((element) => element.isCheck);
+
+    // Calculate the sum
+    for (var item in chosenTopping) {
+      if(item.isCheck) {
+        _price += item.price;
+      }
+    }
+    return _price;
+  }
+  return 0.00;
 }
