@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:selfordering1/Americano.dart';
-import 'package:selfordering1/Cappucino.dart';
-import 'package:selfordering1/Espresso.dart';
-import 'package:selfordering1/Latte.dart';
-import 'package:selfordering1/Mocca.dart';
 import 'package:selfordering1/clickMe.dart';
+import 'package:selfordering1/models/data.dart';
+
+import 'BeverageDetail.dart';
+import 'cart.dart';
 
 class Beverages extends StatefulWidget {
   const Beverages({Key? key}) : super(key: key);
@@ -18,135 +17,65 @@ class _BeveragesState extends State<Beverages> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         title: Text(''),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {Navigator.push(
-              context, MaterialPageRoute(builder: (context) => clickMe(),)
-          );},
-        ),
+        iconTheme: IconThemeData(color: Colors.grey.shade800),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (_) => Cart()));
+          }, icon: Icon(Icons.shopping_bag))
+        ],
       ),
       extendBodyBehindAppBar: true,
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/lightwood.jpg'),
-              fit: BoxFit.fill,
-            )),
+          image: AssetImage('assets/lightwood.jpg'),
+          fit: BoxFit.fill,
+        )),
         child: GridView.count(
-          primary: false,
-          padding: const EdgeInsets.all(20),
-          crossAxisCount: 3,
-          children: <Widget>[
-            Column(
-              children: [ Container(
-                margin: EdgeInsets.all(50),
-                child: GestureDetector(
-                    onTap: () {Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => Americano(),)
-                    );},
-                    child: Image.asset('assets/Menu/Americano.png')
-                ),
-              ),
-                GestureDetector(
-                  onTap: () {Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Americano(),)
-                  );},
-                  child: Text("Americano 120 บาท" , style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: Colors.brown),),
-                )
-              ],
-            ),
-            Column(
-              children: [ Container(
-                margin: EdgeInsets.all(50),
-                child: GestureDetector(
-                    onTap: () {Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => Cappucino(),)
-                    );},
-                    child: Image.asset('assets/Menu/Cappucino.png')
-                ),
-              ),
-                GestureDetector(
-                  onTap: () {Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Cappucino(),)
-                  );},
-                  child: Text("Cappucino 160 บาท" , style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: Colors.brown),),
-                )
-              ],
-            ),
-            Column(
-              children: [ Container(
-                margin: EdgeInsets.all(50),
-                child: GestureDetector(
-                    onTap: () {Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => Espresso(),)
-                    );},
-                    child: Image.asset('assets/Menu/Espresso.png')
-                ),
-              ),
-                GestureDetector(
-                  onTap: () {Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Espresso(),)
-                  );},
-                  child: Text("Espresso 180 บาท" , style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: Colors.brown),),
-                )
-              ],
-            ),
-            Column(
-              children: [ Container(
-                margin: EdgeInsets.all(50),
-                child: GestureDetector(
-                    onTap: () {Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => Latte(),)
-                    );},
-                    child: Image.asset('assets/Menu/Latte.png')
-                ),
-              ),
-                GestureDetector(
-                  onTap: () {Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Latte(),)
-                  );},
-                  child: Text("Latte 160 บาท" , style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: Colors.brown),),
-                )
-              ],
-            ),
-            Column(
-              children: [ Container(
-                margin: EdgeInsets.all(50),
-                child: GestureDetector(
-                    onTap: () {Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => Mocca(),)
-                    );},
-                    child: Image.asset('assets/Menu/Mocca.png')
-                ),
-              ),
-                GestureDetector(
-                  onTap: () {Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Mocca(),)
-                  );},
-                  child: Text("Mocca 180 บาท" , style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: Colors.brown),),
-                )
-              ],
-            ),
-          ],
-        ),
+            primary: false,
+            padding: const EdgeInsets.all(20),
+            crossAxisCount: 3,
+            children: List.generate(Data.beverages.length, (index) {
+              final beverage = Data.beverages[index];
+              return Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(50),
+                    child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    BeverageDetails(beverage: beverage),
+                              ));
+                        },
+                        child: Image.asset(beverage.img)),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                BeverageDetails(beverage: beverage),
+                          ));
+                    },
+                    child: Text(
+                      "${beverage.name} ${beverage.price.toStringAsFixed(0)} บาท",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                          color: Colors.brown),
+                    ),
+                  )
+                ],
+              );
+            })),
       ),
     );
   }
