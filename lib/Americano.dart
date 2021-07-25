@@ -58,7 +58,7 @@ class _AmericanoState extends State<Americano> {
   var items = Products().beverages;
 
   var _size;
-  double price = 0.0;
+  double price = 120;
 
   void setPrice() {
     this.price = calcPrice();

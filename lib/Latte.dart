@@ -58,7 +58,7 @@ class _LatteState extends State<Latte> {
   var items = Products().beverages;
 
   var _size;
-  double price = 0.0;
+  double price = 160;
 
   void setPrice() {
     this.price = calcPrice();

@@ -58,7 +58,7 @@ class _MoccaState extends State<Mocca> {
   var items = Products().beverages;
 
   var _size;
-  double price = 0.0;
+  double price = 180;
 
   void setPrice() {
     this.price = calcPrice();

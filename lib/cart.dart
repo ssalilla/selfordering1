@@ -23,8 +23,20 @@ class _CartState extends State<Cart> {
         elevation: 0.0,
       ),
       extendBodyBehindAppBar: true,
-      body: Center(
-        child: Text("${widget.price}"),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/lightwood.jpg'),
+            fit: BoxFit.fill,
+          ),
+        ),
+        child: Center(
+          child: Text(
+            "ราคารวม: ${widget.price.toStringAsFixed(0)}",
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 50, color: Colors.black),
+          ),
+        ),
       ),
     );
   }
