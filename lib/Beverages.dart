@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:selfordering1/clickMe.dart';
 import 'package:selfordering1/models/data.dart';
-
 import 'BeverageDetail.dart';
 import 'cart.dart';
 

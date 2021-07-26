@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:selfordering1/CartProvider.dart';
@@ -25,7 +26,7 @@ class _CartState extends State<Cart> {
         str.add(element.title);
       }
     });
-    return str.length == 0 ? "NA" : str.join("/");
+    return str.length == 0 ? "-" : str.join(" & ");
   }
 
   @override
@@ -59,22 +60,55 @@ class _CartState extends State<Cart> {
             ...List.generate(items.length, (index) {
               final item = items[index];
               return ListTile(
-                title: Row(
+                title: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(item.title),
-                    Text(item.price.toStringAsFixed(0)),
-                    Text(" Size : ${this._getSize(item.size)}   "),
-                    Text(" Options : ${this._getOptions(item.options)}   "),
+                    Text(item.title,
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                    Text(item.price.toStringAsFixed(0) + '  บาท',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                    Text(" ขนาด : ${this._getSize(item.size)}   ",
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                    Text(" ท๊อปปิ้ง : ${this._getOptions(item.options)}   ",
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                    SizedBox(height: 10,),
                     ElevatedButton(
                         onPressed: () {
                           context.read<CartProvider>().removeItem(item.id);
                         },
-                        child: Text("Remove"))
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.red,),
+                        child: Text("ลบ"))
                   ],
                 ),
               );
             }),
-            Text("total : ${total.toStringAsFixed(0)}")
+            SizedBox(height: 30,),
+            Container(
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.redAccent),
+                      color: Colors.white,
+              ),
+              child: Text("ราคารวม : ${total.toStringAsFixed(0)}",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),),
+            )
           ],
         )),
       ),

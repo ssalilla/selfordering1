@@ -55,7 +55,7 @@ class _BeverageDetailsState extends State<BeverageDetails> {
               size: this.sizeValue,
               options: this.selected);
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("Beverage was added to cart"),
+            content: Text("เพิ่มสินค้าลงในตะกร้าสินค้าแล้ว"),
             backgroundColor: Colors.green.shade600,
           ));
         },
@@ -66,6 +66,11 @@ class _BeverageDetailsState extends State<BeverageDetails> {
         iconTheme: IconThemeData(color: Colors.grey.shade800),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (_) => Cart()));
+          }, icon: Icon(Icons.shopping_cart),),
+        ],
       ),
       extendBodyBehindAppBar: true,
       body: Container(
@@ -102,7 +107,7 @@ class _BeverageDetailsState extends State<BeverageDetails> {
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 15),
                   child: Text(
-                    widget.beverage.price.toStringAsFixed(0) + ' บาท',
+                    this.price.toStringAsFixed(0) + ' บาท',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
@@ -119,7 +124,6 @@ class _BeverageDetailsState extends State<BeverageDetails> {
                 final optionGroup = widget.beverage.optionGroups[index];
                 return Column(
                   children: [
-                    Text("${optionGroup.title}"),
                     ListView.builder(
                         shrinkWrap: true,
                         itemCount: optionGroup.options.length,
@@ -144,7 +148,7 @@ class _BeverageDetailsState extends State<BeverageDetails> {
                                       ),
                                       value: this.selected.contains(option.id),
                                       secondary: Container(
-                                        height: 50,
+                                        height: 30,
                                         width: 300,
                                         child: Text(
                                           option.title,
@@ -187,16 +191,6 @@ class _BeverageDetailsState extends State<BeverageDetails> {
                 );
               }),
             ),
-            Container(
-              child: Text(
-                this.price.toStringAsFixed(0) + ' บาท',
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-            )
           ],
         ),
       ),
