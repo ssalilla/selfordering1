@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:selfordering1/CartProvider.dart';
+import 'package:selfordering1/Thanks.dart';
 
 import 'models/data.dart';
 
@@ -34,10 +35,17 @@ class _CartState extends State<Cart> {
     final total = context.watch<CartProvider>().total;
     final items = context.watch<CartProvider>().items;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (_) => Thanks()));
+        },
+        child: Icon(Icons.payments_sharp, color: Colors.white,),
+        backgroundColor: Colors.red,
+      ),
       appBar: AppBar(
         title: Text(''),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: Icon(Icons.arrow_back, color: Colors.grey.shade800),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -103,12 +111,12 @@ class _CartState extends State<Cart> {
                   border: Border.all(color: Colors.redAccent),
                       color: Colors.white,
               ),
-              child: Text("ราคารวม : ${total.toStringAsFixed(0)}",
+              child: Text("ราคารวม : ${total.toStringAsFixed(0)}  บาท",
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),),
-            )
+            ),
           ],
         )),
       ),

@@ -55,7 +55,11 @@ class _BeverageDetailsState extends State<BeverageDetails> {
               size: this.sizeValue,
               options: this.selected);
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("เพิ่มสินค้าลงในตะกร้าสินค้าแล้ว"),
+            content: Text("เพิ่มสินค้าลงในตะกร้าสินค้าแล้ว",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.white)),
             backgroundColor: Colors.green.shade600,
           ));
         },

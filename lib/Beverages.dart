@@ -15,7 +15,6 @@ class _BeveragesState extends State<Beverages> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         title: Text(''),
         iconTheme: IconThemeData(color: Colors.grey.shade800),
         backgroundColor: Colors.transparent,
@@ -23,7 +22,7 @@ class _BeveragesState extends State<Beverages> {
         actions: [
           IconButton(onPressed: (){
             Navigator.of(context).push(MaterialPageRoute(builder: (_) => Cart()));
-          }, icon: Icon(Icons.shopping_bag))
+          }, icon: Icon(Icons.shopping_cart))
         ],
       ),
       extendBodyBehindAppBar: true,
